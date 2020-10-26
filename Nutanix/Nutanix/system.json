@@ -1,0 +1,72 @@
+{
+  "name":"Nutanix",
+  "version":"1.0.0",
+  "author":"James Nobes",
+  "panels":[
+
+  {
+    "title":"Nutanix Cluster",
+    "description":"Nutanix Prism Element",
+    "fields": [
+      {
+        "display":"Nutanix Prism IP/Name",
+        "field ID":"connect_nutanix_cluster",
+        "type":"shortString",
+        "mandatory":"true",
+        "add to column":"true",
+        "show column":"true",
+        "identifier":"true",
+        "tooltip":"IP Address or Name of the Nutanix Prism Element Cluster"
+      },
+	  {
+        "display":"Nutanix Admin User",
+        "field ID":"connect_nutanix_admin_user",
+        "type":"shortString",
+        "mandatory":"true",
+        "add to column":"true",
+        "show column":"true",
+        "tooltip":"Nutanix Username"
+      },
+	  {
+        "display":"Nutanix Admin Password",
+        "field ID":"connect_nutanix_admin_password",
+        "type":"encrypted",
+        "mandatory":"true",
+        "add to column":"false",
+        "show column":"false",
+        "tooltip":"Password for the Admin user"
+      },
+    {
+        "certification validation":"true"
+      }
+ 
+    ]
+  },
+	{
+    "focal appliance": true,
+    "title": "Assign CounterACT Devices",
+    "description": "<html>Select the connecting CounterACT device that will communicate with Nutanix, including requests by other CounterACT devices. Specific CounterACT devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>"
+  },
+  {
+    "proxy server": true,
+    "title": "Proxy Server",
+    "description": "<html>Select a Proxy Server device to manage all communication between CounterACT and Nutanix.</html>"
+  },
+  {
+    "title":"Nutanix Options",
+    "description":"Nutanix Discovery Options",
+    "fields": [
+      {
+          "host discovery": true,
+          "display": "Discovery Frequency (mins)",
+          "max": 300000,
+          "add to column": "true",
+          "show column": "true",
+          "value":5
+      }
+    ]
+  }
+
+  ],
+  "testEnable":true
+}

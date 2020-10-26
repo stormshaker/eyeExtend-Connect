@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "name": "Nutanix",
+
+  "groups": [
+    {
+      "name":"connect_nutanix_nutanix",
+      "label":"Nutanix"
+    }
+],
+  "properties": [
+    {
+      "tag": "connect_nutanix_description",
+      "label": "Nutanix VM Description",
+      "description": "The VM description in Nutanix.",
+      "type": "string",
+      "group": "connect_nutanix_nutanix",
+      "dependencies": [
+        {
+          "name": "mac",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_nutanix_name",
+      "label": "Nutanix VM Name",
+      "description": "The VM name in Nutanix.",
+      "type": "string",
+      "group": "connect_nutanix_nutanix",
+      "dependencies": [
+        {
+          "name": "mac",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_nutanix_uuid",
+      "label": "Nutanix UUID",
+      "description": "The VM unique identifier in Nutanix.",
+      "type": "string",
+      "group": "connect_nutanix_nutanix",
+      "dependencies": [
+        {
+          "name": "mac",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_nutanix_power_state",
+      "label": "Nutanix Power State",
+      "description": "The Power State of the VM in Nutanix.",
+      "type": "string",
+      "group": "connect_nutanix_nutanix",
+      "options": [
+        {
+          "name": "on",
+          "label": "On"
+        },
+        {
+          "name": "off",
+          "label": "Off"
+        }
+      ],
+       "track_change": {
+          "enable": true,
+          "label": "Nutanix Power State Changed",
+          "description": "Track Change property for nutanix power state"
+      },
+      "dependencies": [
+        {
+          "name": "mac",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    }
+  ],
+ 
+  "scripts": [
+
+    {
+      "name": "nutanix_test.py",
+      "test": true
+    },
+
+    {
+      "name": "nutanix_poll.py",
+      "discovery": true
+    }
+
+  ]
+}
