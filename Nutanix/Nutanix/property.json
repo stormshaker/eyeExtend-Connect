@@ -14,18 +14,32 @@
       "label": "Nutanix VM Description",
       "description": "The VM description in Nutanix.",
       "type": "string",
-      "group": "connect_nutanix_nutanix"
+      "group": "connect_nutanix_nutanix",
+      "dependencies": [
+        {
+          "name": "connect_nutanix_uuid",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
     },
     {
       "tag": "connect_nutanix_name",
       "label": "Nutanix VM Name",
       "description": "The VM name in Nutanix.",
       "type": "string",
-      "group": "connect_nutanix_nutanix"
+      "group": "connect_nutanix_nutanix",
+      "dependencies": [
+        {
+          "name": "connect_nutanix_uuid",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
     },
     {
       "tag": "connect_nutanix_uuid",
-      "label": "Nutanix UUID",
+      "label": "Nutanix VM UUID",
       "description": "The VM unique identifier in Nutanix.",
       "type": "string",
       "group": "connect_nutanix_nutanix"
@@ -50,7 +64,14 @@
           "enable": true,
           "label": "Nutanix Power State Changed",
           "description": "Track Change property for nutanix power state"
-      }
+      },
+      "dependencies": [
+        {
+          "name": "connect_nutanix_uuid",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
     }
   ],
  
@@ -64,6 +85,14 @@
     {
       "name": "nutanix_poll.py",
       "discovery": true
+    },
+    {
+      "name": "nutanix_resolve.py",
+      "properties": [
+        "connect_nutanix_name",
+        "connect_nutanix_description",
+        "connect_nutanix_power_state"
+      ]
     }
 
   ]
