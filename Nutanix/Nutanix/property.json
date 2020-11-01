@@ -14,42 +14,21 @@
       "label": "Nutanix VM Description",
       "description": "The VM description in Nutanix.",
       "type": "string",
-      "group": "connect_nutanix_nutanix",
-      "dependencies": [
-        {
-          "name": "mac",
-          "redo_new": true,
-          "redo_change": true
-        }
-      ]
+      "group": "connect_nutanix_nutanix"
     },
     {
       "tag": "connect_nutanix_name",
       "label": "Nutanix VM Name",
       "description": "The VM name in Nutanix.",
       "type": "string",
-      "group": "connect_nutanix_nutanix",
-      "dependencies": [
-        {
-          "name": "mac",
-          "redo_new": true,
-          "redo_change": true
-        }
-      ]
+      "group": "connect_nutanix_nutanix"
     },
     {
       "tag": "connect_nutanix_uuid",
       "label": "Nutanix UUID",
       "description": "The VM unique identifier in Nutanix.",
       "type": "string",
-      "group": "connect_nutanix_nutanix",
-      "dependencies": [
-        {
-          "name": "mac",
-          "redo_new": true,
-          "redo_change": true
-        }
-      ]
+      "group": "connect_nutanix_nutanix"
     },
     {
       "tag": "connect_nutanix_power_state",
@@ -71,14 +50,7 @@
           "enable": true,
           "label": "Nutanix Power State Changed",
           "description": "Track Change property for nutanix power state"
-      },
-      "dependencies": [
-        {
-          "name": "mac",
-          "redo_new": true,
-          "redo_change": true
-        }
-      ]
+      }
     }
   ],
  
