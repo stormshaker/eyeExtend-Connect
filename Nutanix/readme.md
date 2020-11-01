@@ -8,5 +8,6 @@ Supports:
   
 TODO:
   * Resolve script to see property updates
+  * Update to use newly-supported python Requests library
   * Investigate refactoring auth into a separate script
 
