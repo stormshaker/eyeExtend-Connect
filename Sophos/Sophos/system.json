@@ -1,0 +1,63 @@
+{
+  "name":"Sophos",
+  "version":"1.0.0",
+  "author":"James Nobes",
+  "panels":[
+
+  {
+    "title":"Sophos Cloud",
+    "description":"Cloud Credentials",
+    "fields": [
+      {
+        "display":"Sophos Client ID",
+        "field ID":"connect_sophos_client_id",
+        "type":"shortString",
+        "mandatory":"true",
+        "add to column":"true",
+        "show column":"true",
+        "identifier":"true",
+        "tooltip":"Client ID from API Credentials"
+      },
+	  {
+        "display":"Sophos Client Secret",
+        "field ID":"connect_sophos_client_secret",
+        "type":"encrypted",
+        "mandatory":"true",
+        "add to column":"true",
+        "show column":"true",
+        "tooltip":"Client Secret from API Credentials"
+      },
+    {
+        "certification validation":"true"
+      }
+ 
+    ]
+  },
+	{
+    "focal appliance": true,
+    "title": "Assign CounterACT Devices",
+    "description": "<html>Select the connecting CounterACT device that will communicate with Sophos, including requests by other CounterACT devices. Specific CounterACT devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>"
+  },
+  {
+    "proxy server": true,
+    "title": "Proxy Server",
+    "description": "<html>Select a Proxy Server device to manage all communication between CounterACT and Sophos.</html>"
+  },
+  {
+    "title":"Sophos Options",
+    "description":"Sophos Discovery Options",
+    "fields": [
+      {
+          "host discovery": true,
+          "display": "Discovery Frequency (mins)",
+          "max": 300000,
+          "add to column": "true",
+          "show column": "true",
+          "value":5
+      }
+    ]
+  }
+
+  ],
+  "testEnable":true
+}

@@ -1,0 +1,181 @@
+{
+  "version": "1.0.0",
+  "name": "Sophos",
+
+  "groups": [
+    {
+      "name":"connect_sophos_sophos",
+      "label":"Sophos"
+    }
+],
+  "properties": [
+        {
+      "tag": "connect_sophos_id",
+      "label": "Sophos ID",
+      "description": "The unique identifier in Sophos Central",
+      "type": "string",
+      "group": "connect_sophos_sophos"
+    },
+    {
+      "tag": "connect_sophos_hostname",
+      "label": "Sophos Hostname",
+      "description": "The hostname from Sophos Central",
+      "type": "string",
+      "group": "connect_sophos_hostname",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_health_overall",
+      "label": "Sophos Overall Health",
+      "description": "Sophos overall health status",
+      "type": "string",
+      "group": "connect_sophos_health_overall",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_health_service",
+      "label": "Sophos Service Health",
+      "description": "Sophos service health status",
+      "type": "string",
+      "group": "connect_sophos_health_service",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_is_server",
+      "label": "Sophos is a Server",
+      "description": "Sophos server flag",
+      "type": "boolean",
+      "group": "connect_sophos_is_server",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_os_platform",
+      "label": "Sophos OS platform",
+      "description": "Endpoint OS platform detected by Sophos",
+      "type": "string",
+      "group": "connect_sophos_os_platform",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_os_name",
+      "label": "Sophos OS platform name",
+      "description": "Endpoint OS name detected by Sophos",
+      "type": "string",
+      "group": "connect_sophos_os_name",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_associatedperson_name",
+      "label": "Sophos Associated Person",
+      "description": "Name of Associated Person detected by Sophos",
+      "type": "string",
+      "group": "connect_sophos_associatedperson_name",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_associatedperson_login",
+      "label": "Sophos Associated Person",
+      "description": "Login of Associated Person detected by Sophos",
+      "type": "string",
+      "group": "connect_sophos_associatedperson_login",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_tamperprotection",
+      "label": "Sophos Tamper Protection",
+      "description": "Sophos Endpoint Tamper Protection",
+      "type": "boolean",
+      "group": "connect_sophos_tamperprotection",
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    }
+  ],
+ 
+  "scripts": [
+
+    {
+      "name": "sophos_test.py",
+      "test": true
+    },
+
+    {
+      "name": "sophos_poll.py",
+      "discovery": true
+    },
+    {
+      "name": "sophos_resolve.py",
+      "properties": [
+        "connect_sophos_hostname",
+        "connect_sophos_health_overall",
+        "connect_sophos_health_service",
+        "connect_sophos_is_server",
+        "connect_sophos_os_platform",
+        "connect_sophos_os_name",
+        "connect_sophos_associatedperson_name",
+        "connect_sophos_associatedperson_login",
+        "connect_sophos_tamperprotection"
+      ]
+    },
+    {
+      "name": "sophos_authorization.py",
+      "authorization": true
+    },
+        {
+      "name": "sophos_endpoints.py",
+      "library_file": true
+    }
+  ]
+}
