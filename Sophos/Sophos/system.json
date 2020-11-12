@@ -26,11 +26,7 @@
         "add to column":"true",
         "show column":"true",
         "tooltip":"Client Secret from API Credentials"
-      },
-    {
-        "certification validation":"true"
       }
- 
     ]
   },
 	{
