@@ -5,7 +5,7 @@ response = {}
 
 if jwt_token != "":
 	response["succeeded"] = True
-	response["result_msg"] = "Successfully connected."
+	response["result_msg"] = "Successfully connected to Sophos Central."
 else:
 	response["succeeded"] = False
-	response["result_msg"] = "Could not connect to Cylance server."
+	response["result_msg"] = "Could not connect to Sophos Central."
