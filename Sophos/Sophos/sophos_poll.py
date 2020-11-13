@@ -1,6 +1,4 @@
 ## Query the list of endpoints and import properties
-##
-## Use the strongly-typed Endpoint library (already imported by Connect from property.json)
 
 import requests # Supported in Connect v1.8+
 

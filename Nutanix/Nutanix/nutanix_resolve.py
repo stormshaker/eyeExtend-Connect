@@ -31,7 +31,7 @@ nutanix_to_forescout_props_map = {
 }
 
 # Config
-nu_url = "https://" + params["connect_nutanix_cluster"] + ":9440/api/nutanix/v3/vms/" + params["connect_nutanix_uuid"]
+nu_url = "https://" + params["connect_nutanix_cluster"] + ":9440/api/nutanix/v2.0/vms/" + params["connect_nutanix_uuid"]
 nu_user = params["connect_nutanix_admin_user"] 
 nu_pass = params["connect_nutanix_admin_password"]
 
@@ -54,6 +54,9 @@ try:
 	## Process the response
 	logging.debug("Response: {}".format(str(json_resp)))
 	properties = {}
+	for ntnx,forescout in nutanix_to_forescout_props_map :
+		properties[forescout] = json_resp[ntnx]
+
 	response["properties"] = properties
 
 except HTTPError as e:
