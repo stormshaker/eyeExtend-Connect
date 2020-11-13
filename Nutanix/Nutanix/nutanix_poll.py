@@ -104,4 +104,4 @@ except Exception as e:
 	logging.debug("Error: {}".format(str(e)), exc_info=True)
 	response["error"] = "Failed to poll. {}".format(str(e))
 
-logging.debug("Returning response object to infrastructure. response=[{}]".format(response))
+#logging.debug("Returning response object to infrastructure. response=[{}]".format(response))

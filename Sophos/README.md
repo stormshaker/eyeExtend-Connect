@@ -1,7 +1,7 @@
 Sophos Central endpoint discovery. Discovers endpoints from Sophos Central.
 
 Supports:
-  * Host Discovery
+  * Host Discovery (Polling)
 
 Properties:
         * Hostname
