@@ -10,23 +10,25 @@ headers = {
 }
 
 response = {}
+jwt_token = ""
 
 ## Request
 try:
 	resp = requests.request("POST", url, headers=headers, data = payload)
+	resp.raise_for_status()
 
-	if (resp.getcode() == 200) :
-		jwt_token = resp.json()['access_token']
-		response["token"] = jwt_token
-	else:
-		response["token"] = ""
-		
-except HTTPError as e:
-	logging.debug("HTTPError: {}".format(str(e)))
-	response["error"] = "Failed to authenticate. Response code: {}".format(e.code)
-except URLError as e:
-	logging.debug("URLError: {}".format(str(e)))
-	response["error"] = "Failed to poll. {}".format(e.reason)
+	jwt_token = resp.json()['access_token']
+
+except ConnectionError as e:
+	logging.debug("Conenction Error: {}".format(str(e)), exc_info=True)
+	response["error"] = "Failed to authenticate. {}".format(str(e))
+
 except Exception as e:
 	logging.debug("Error: {}".format(str(e)), exc_info=True)
 	response["error"] = "Failed to authenticate. {}".format(str(e))
+
+## Response back to Forescout
+finally:
+	if (jwt_token != "") :
+		response["token"] = jwt_token
+		

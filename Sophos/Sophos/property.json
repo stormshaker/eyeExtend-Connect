@@ -36,6 +36,24 @@
       "description": "Sophos overall health status",
       "type": "string",
       "group": "connect_sophos_health_overall",
+      "options": [
+        {
+          "name": "good",
+          "label": "Good"
+        },
+        {
+          "name": "bad",
+          "label": "Bad"
+        },
+        {
+          "name": "suspicious",
+          "label": "Suspicious"
+        },
+        {
+          "name": "unknown",
+          "label": "Unknown"
+        }
+      ],
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -50,6 +68,24 @@
       "description": "Sophos service health status",
       "type": "string",
       "group": "connect_sophos_health_service",
+      "options": [
+        {
+          "name": "good",
+          "label": "Good"
+        },
+        {
+          "name": "bad",
+          "label": "Bad"
+        },
+        {
+          "name": "suspicious",
+          "label": "Suspicious"
+        },
+        {
+          "name": "unknown",
+          "label": "Unknown"
+        }
+      ],
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -78,6 +114,20 @@
       "description": "Endpoint OS platform detected by Sophos",
       "type": "string",
       "group": "connect_sophos_os_platform",
+      "options": [
+        {
+          "name": "windows",
+          "label": "Windows"
+        },
+        {
+          "name": "linux",
+          "label": "Linux"
+        },
+        {
+          "name": "macOS",
+          "label": "MacOS"
+        }
+      ],
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -102,7 +152,7 @@
     },
     {
       "tag": "connect_sophos_associatedperson_name",
-      "label": "Sophos Associated Person",
+      "label": "Sophos Associated Name",
       "description": "Name of Associated Person detected by Sophos",
       "type": "string",
       "group": "connect_sophos_associatedperson_name",
@@ -116,7 +166,7 @@
     },
     {
       "tag": "connect_sophos_associatedperson_login",
-      "label": "Sophos Associated Person",
+      "label": "Sophos Associated Login",
       "description": "Login of Associated Person detected by Sophos",
       "type": "string",
       "group": "connect_sophos_associatedperson_login",
@@ -172,10 +222,6 @@
     {
       "name": "sophos_authorization.py",
       "authorization": true
-    },
-        {
-      "name": "sophos_endpoints.py",
-      "library_file": true
     }
   ]
 }

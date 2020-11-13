@@ -23,8 +23,6 @@
         "field ID":"connect_sophos_client_secret",
         "type":"encrypted",
         "mandatory":"true",
-        "add to column":"true",
-        "show column":"true",
         "tooltip":"Client Secret from API Credentials"
       }
     ]
