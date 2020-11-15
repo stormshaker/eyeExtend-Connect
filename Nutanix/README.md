@@ -5,7 +5,7 @@ Supports:
   * Basic authentication over HTTPS
   * Host Discovery
   * Properties: UUID, Name, Description, Power State
-  * Resolve script
+  * Resolve script (still testing)
   
 TODO:
   * Update to use newly-supported python Requests library
