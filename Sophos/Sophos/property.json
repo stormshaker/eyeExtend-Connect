@@ -5,7 +5,7 @@
   "groups": [
     {
       "name":"connect_sophos_sophos",
-      "label":"Sophos"
+      "label":"Sophos Endpoint Protection"
     }
 ],
   "properties": [
@@ -21,7 +21,7 @@
       "label": "Sophos Hostname",
       "description": "The hostname from Sophos Central",
       "type": "string",
-      "group": "connect_sophos_hostname",
+      "group": "connect_sophos_sophos",
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -35,7 +35,7 @@
       "label": "Sophos Overall Health",
       "description": "Sophos overall health status",
       "type": "string",
-      "group": "connect_sophos_health_overall",
+      "group": "connect_sophos_sophos",
       "options": [
         {
           "name": "good",
@@ -67,7 +67,7 @@
       "label": "Sophos Service Health",
       "description": "Sophos service health status",
       "type": "string",
-      "group": "connect_sophos_health_service",
+      "group": "connect_sophos_sophos",
       "options": [
         {
           "name": "good",
@@ -99,7 +99,7 @@
       "label": "Sophos is a Server",
       "description": "Sophos server flag",
       "type": "boolean",
-      "group": "connect_sophos_is_server",
+      "group": "connect_sophos_sophos",
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -113,7 +113,7 @@
       "label": "Sophos OS platform",
       "description": "Endpoint OS platform detected by Sophos",
       "type": "string",
-      "group": "connect_sophos_os_platform",
+      "group": "connect_sophos_sophos",
       "options": [
         {
           "name": "windows",
@@ -141,7 +141,7 @@
       "label": "Sophos OS platform name",
       "description": "Endpoint OS name detected by Sophos",
       "type": "string",
-      "group": "connect_sophos_os_name",
+      "group": "connect_sophos_sophos",
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -155,7 +155,7 @@
       "label": "Sophos Associated Name",
       "description": "Name of Associated Person detected by Sophos",
       "type": "string",
-      "group": "connect_sophos_associatedperson_name",
+      "group": "connect_sophos_sophos",
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -169,7 +169,7 @@
       "label": "Sophos Associated Login",
       "description": "Login of Associated Person detected by Sophos",
       "type": "string",
-      "group": "connect_sophos_associatedperson_login",
+      "group": "connect_sophos_sophos",
       "dependencies": [
         {
           "name": "connect_sophos_id",
@@ -183,7 +183,7 @@
       "label": "Sophos Tamper Protection",
       "description": "Sophos Endpoint Tamper Protection",
       "type": "boolean",
-      "group": "connect_sophos_tamperprotection",
+      "group": "connect_sophos_sophos",
       "dependencies": [
         {
           "name": "connect_sophos_id",
