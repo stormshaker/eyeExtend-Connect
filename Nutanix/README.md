@@ -1,4 +1,9 @@
-Nutanix Acropolis Hypervisor integration
+Nutanix Acropolis Hypervisor integration.
+
+Build using the build.sh script, to create the ZIP archive that can be imported into the Forescout console. Requires that importing of unsigned apps be allowed; use the following fstool command from the Forescout command line interface:
+
+``fstool allow_unsigned_connect_app_install true``
+
 
 Supports:
   * Polling with the v2 API
