@@ -50,17 +50,34 @@ try:
 	## Parse endpoints returned
 	for item in resp.json()['items'] :
 		new_endpoint = {}
+
+		# Try to put MAC first if available
+		if ("macAddresses" in item) :
+			new_endpoint["mac"] = item["macAddresses"][0].replace(":", "").lower()
+
+		# IPv4 address should always be available
 		new_endpoint["ip"] = item["ipv4Addresses"][0]
 		properties = {}
 
 		# Common properties
 		#logging.debug("Processing: " + item["hostname"])
+		properties["connect_sophos_id"] = item["id"]
+		properties["connect_sophos_ip4_addresses"] = item["ipv4Addresses"]
 		properties["connect_sophos_hostname"] = item["hostname"]
 		properties["connect_sophos_is_server"] = item["os"]["isServer"]
 		properties["connect_sophos_os_platform"] = item["os"]["platform"]
 		properties["connect_sophos_associatedperson_login"] = item["associatedPerson"]["viaLogin"]
 
 		# Optional properties
+		if ("macAddresses" in item) :
+			macs = []
+			for mac in item["macAddresses"] :
+				macs.append(mac.replace(":", "").lower())
+			properties["connect_sophos_mac_addresses"] = macs
+
+		if ("ipv6Addresses" in item) :
+			properties["connect_sophos_ip6_addresses"] = item["ipv6Addresses"]
+
 		if ("name" in item["os"]) :
 			properties["connect_sophos_os_name"] = item["os"]["name"]
 
@@ -88,5 +105,5 @@ except Exception as e:
 finally:
 	response['endpoints'] = endpoints
 
-#logging.debug("Returning response object to infrastructure. response=[{}]".format(response))
+#logging.debug("Returning poll response object to infrastructure. response=[{}]".format(response))
 

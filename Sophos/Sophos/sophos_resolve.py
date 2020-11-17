@@ -2,7 +2,14 @@
 
 import requests # Supported in Connect v1.8+
 
+# Setup
+sophos_id = params["connect_sophos_id"]
+properties = {}
+
 try:
+	## Ensure we have a Sophos Central ID for this endpoint
+	assert sophos_id is not None and sophos_id != ''
+
 	## Check if the authorization script has run
 	if "connect_authorization_token" in params:
 		jwt_token = params["connect_authorization_token"]
@@ -41,23 +48,32 @@ try:
 
 	## Second request: List endpoints
 	headers['X-Tenant-ID'] = tenant_id
-	url = data_region + "/endpoint/v1/endpoints/" + params["connect_sophos_id"]
+	url = data_region + "/endpoint/v1/endpoints/" + sophos_id
 
 	resp = requests.get(url, headers=headers)
 	resp.raise_for_status()
 
 	## Parse endpoints returned
-	properties = {}
 	item = resp.json()
 
 	# Common properties
 	#logging.debug("Processing: " + item["hostname"])
+	properties["connect_sophos_ip4_addresses"] = item["ipv4Addresses"]
 	properties["connect_sophos_hostname"] = item["hostname"]
 	properties["connect_sophos_is_server"] = item["os"]["isServer"]
 	properties["connect_sophos_os_platform"] = item["os"]["platform"]
 	properties["connect_sophos_associatedperson_login"] = item["associatedPerson"]["viaLogin"]
 
 	# Optional properties
+	if ("macAddresses" in item) :
+		macs = []
+		for mac in item["macAddresses"] :
+			macs.append(mac.replace(":", "").lower())
+		properties["connect_sophos_mac_addresses"] = macs
+
+	if ("ipv6Addresses" in item) :
+		properties["connect_sophos_ip6_addresses"] = item["ipv6Addresses"]
+
 	if ("name" in item["os"]) :
 		properties["connect_sophos_os_name"] = item["os"]["name"]
 
@@ -73,14 +89,18 @@ try:
 		
 except ConnectionError as e:
 	logging.debug("Conenction Error: {}".format(str(e)), exc_info=True)
-	response["error"] = "Failed to poll. {}".format(str(e))
+	response["error"] = "Failed to resolve. {}".format(str(e))
+
+except AssertionError as e:
+	logging.debug("Attempted to resolve with no Sophos ID")
+	response["error"] = "Failed to resolve. {}".format(str(e))
 
 except Exception as e:
 	logging.debug("Error: {}".format(str(e)), exc_info=True)
-	response["error"] = "Failed to poll. {}".format(str(e))
+	response["error"] = "Failed to resolve. {}".format(str(e))
 
 finally:
 	response['properties'] = properties
 
-#logging.debug("Returning response object to infrastructure. response=[{}]".format(response))
+#logging.debug("Returning resolve response object to infrastructure. response=[{}]".format(response))
 

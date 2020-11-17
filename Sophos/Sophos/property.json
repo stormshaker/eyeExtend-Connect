@@ -9,7 +9,7 @@
     }
 ],
   "properties": [
-        {
+    {
       "tag": "connect_sophos_id",
       "label": "Sophos ID",
       "description": "The unique identifier in Sophos Central",
@@ -25,6 +25,53 @@
       "dependencies": [
         {
           "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_mac_addresses",
+      "label": "Sophos MAC Addresses",
+      "description": "Sophos MAC Addresses",
+      "type": "string",
+      "group": "connect_sophos_sophos",
+      "list": true,
+      "dependencies": [
+        {
+          "name": "connect_sophos_id",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_ip4_addresses",
+      "label": "Sophos IPv4 Addresses",
+      "description": "Sophos IPv4 Addresses",
+      "type": "string",
+      "group": "connect_sophos_sophos",
+      "list": true,
+      "overwrite": true,
+      "dependencies": [
+        {
+          "name": "connect_sophos_sophos",
+          "redo_new": true,
+          "redo_change": true
+        }
+      ]
+    },
+    {
+      "tag": "connect_sophos_ip6_addresses",
+      "label": "Sophos IPv6 Addresses",
+      "description": "Sophos IPv6 Addresses",
+      "type": "string",
+      "group": "connect_sophos_sophos",
+      "list": true,
+      "overwrite": true,
+      "dependencies": [
+        {
+          "name": "connect_sophos_sophos",
           "redo_new": true,
           "redo_change": true
         }
