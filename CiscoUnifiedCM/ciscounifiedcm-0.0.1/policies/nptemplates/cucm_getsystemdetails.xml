@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2.1-320" CACHE_TTL="432000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Query CUCM AXL API for registered phones" ENABLED="true" ID="-1195687806024297309" NAME="Get CUCM System Details" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Get CUCM System Details-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="2921059164868964742">
+                    <GROUP ID="3852107154157052871" NAME="P-VoIP Devices"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.2.1-320" CACHE_TTL="432000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Registered phone found in CUCM" ID="-7975981454249709673" NAME="Registered" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Registered Endpoint Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cucm_registered" LABEL="CUCM - Registered" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="6652799938668501413" TYPE="equals">
+                            <VALUE VALUE2="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:5594822328173455873;name:connect_cucm_registered"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2.1-320" CACHE_TTL="432000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Registered phone NOT found in CUCM" ID="3874372629284672460" NAME="NOT Registered" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: NOT Registered-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cucm_registered" LABEL="CUCM - Registered" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.6.1" PLUGIN_VESRION_NUMBER="16010020" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="2529469072720793017" TYPE="equals">
+                            <VALUE VALUE2="false"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="sendmail">
+                    <PARAM NAME="signature" VALUE="default"/>
+                    <PARAM NAME="subject" VALUE="CounterACT: CUCM Phone NOT Registered event for {hostname} with IP address {ip}"/>
+                    <PARAM NAME="to" VALUE="admin@test.local"/>
+                    <PARAM NAME="message" VALUE="Hello,&#10;&#10;CounterACT has detected an unregistred phone in CUCM. &#10;&#10;Host Information:&#10;&#10;IP Address: &#9;&#9;{ip}&#10;MAC Address: &#9;&#9;{mac}&#10;DHCP Hostname:&#9;{dhcp_hostname_v2}&#10;DNS Name:&#9;&#9;{hostname}&#10;Segment Name:&#9;{segment_name}&#10;Switch and Port Name:&#9;{sw_ipport_desc}"/>
+                    <PARAM NAME="aggregate" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2.1-320" CACHE_TTL="432000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Lookup was irresolvable" ID="6543206123247368478" NAME="Unable to Obtain" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <ACTION DISABLED="true" NAME="sendmail">
+                    <PARAM NAME="signature" VALUE="default"/>
+                    <PARAM NAME="subject" VALUE="CounterACT: CUCM Phone Irresolvable event for {hostname} with IP address {ip}"/>
+                    <PARAM NAME="to" VALUE="admin@test.local"/>
+                    <PARAM NAME="message" VALUE="Hello,&#10;&#10;CounterACT has detected an irresolvable phone in CUCM. &#10;&#10;Host Information:&#10;&#10;IP Address: &#9;&#9;{ip}&#10;MAC Address: &#9;&#9;{mac}&#10;DHCP Hostname:&#9;{dhcp_hostname_v2}&#10;DNS Name:&#9;&#9;{hostname}&#10;Segment Name:&#9;{segment_name}&#10;Switch and Port Name:&#9;{sw_ipport_desc}"/>
+                    <PARAM NAME="aggregate" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
