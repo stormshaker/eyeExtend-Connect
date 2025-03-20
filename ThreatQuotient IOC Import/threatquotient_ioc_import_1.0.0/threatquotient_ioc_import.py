@@ -20,6 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+# pyright: reportUndefinedVariable=false
+# The 'params' object is provided by the Forescout platform at runtime
+
 import logging
 import urllib.request
 import urllib.error
